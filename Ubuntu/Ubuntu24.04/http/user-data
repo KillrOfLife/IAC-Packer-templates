@@ -1,0 +1,51 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  refresh-installer:
+      update: true
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    allow-pw: true
+    disable_root: true
+    ssh_quiet_keygen: true
+    allow_public_ssh_keys: true
+  storage:
+    layout:
+      name: lvm
+    swap:
+      size: 0
+  network:
+    version: 2
+    ethernets:
+      all-en:
+        dhcp4: true
+        match: 
+          name: en*
+      all-eth:
+        dhcp4: true
+        match: 
+          name: eth*
+  disable_root: true
+  user-data:
+    package_upgrade: true
+    timezone: US/Pacific
+    ssh_pwauth: false
+    users:
+      - name: ubuntu
+        groups: [adm, sudo]
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+        # mkpasswd --method=SHA-512 --rounds=4096
+        passwd: $6$rounds=4096$jEnM72qOA54aQ/ou$wGK4OQI94vNQIDWg6a7tpuTNRfjeYo6Acqp.57Kxi0SGzznHcf6.ZjTX5w9S/RQ3DniOrQ1SaKmiDH7n/FcjI0
+        
+  packages:
+    - qemu-guest-agent
+    - sudo
+    - git
+    - cifs-utils
+    - ansible
+  
