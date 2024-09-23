@@ -14,9 +14,7 @@ autoinstall:
     allow_public_ssh_keys: true
   storage:
     layout:
-      name: lvm
-    swap:
-      size: 0
+      name: zfs
   network:
     version: 2
     ethernets:
@@ -38,14 +36,16 @@ autoinstall:
         groups: [adm, sudo]
         lock-passwd: false
         sudo: ALL=(ALL) NOPASSWD:ALL
-        shell: /bin/bash
+        shell: /bin/fish
         # mkpasswd --method=SHA-512 --rounds=4096
         passwd: $6$rounds=4096$jEnM72qOA54aQ/ou$wGK4OQI94vNQIDWg6a7tpuTNRfjeYo6Acqp.57Kxi0SGzznHcf6.ZjTX5w9S/RQ3DniOrQ1SaKmiDH7n/FcjI0
         
   packages:
+    - fish
     - qemu-guest-agent
     - sudo
     - git
     - cifs-utils
     - ansible
+
   

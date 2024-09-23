@@ -20,11 +20,11 @@ variable "ssh_password" {
   sensitive = true
 }
 
-variable "proxmox_node_name" {
+variable "proxmox_node" {
   type = string
 }
 
-variable "proxmox_storage_pool" {
+variable "proxmox_vm_storage" {
   type = string
 }
 
@@ -39,7 +39,7 @@ source "proxmox-iso" "IAC-Ubuntu-24-04" {
   token                    = "${var.proxmox_api_token_secret}"
   insecure_skip_tls_verify = true
 
-  node                 = "${var.proxmox_node_name}"
+  node                 = "${var.proxmox_node}"
   # vm_id                = "90101"
   vm_name              = "IAC-Ubuntu-24-04"
   template_description = "V1"
@@ -56,7 +56,7 @@ source "proxmox-iso" "IAC-Ubuntu-24-04" {
   memory  = "2048"
 
   cloud_init              = true
-  cloud_init_storage_pool = "${var.proxmox_storage_pool}"
+  cloud_init_storage_pool = "${var.proxmox_vm_storage}"
 
   vga {
     type = "virtio"
@@ -65,7 +65,7 @@ source "proxmox-iso" "IAC-Ubuntu-24-04" {
   disks {
     disk_size    = "20G"
     format       = "raw"
-    storage_pool = "${var.proxmox_storage_pool}"
+    storage_pool = "${var.proxmox_vm_storage}"
     type         = "virtio"
   }
 
@@ -81,7 +81,7 @@ source "proxmox-iso" "IAC-Ubuntu-24-04" {
   # boot_wait                 = "6s"
   # communicator              = "ssh"
 
-  http_directory = "Ubuntu/Ubuntu24.04/http"
+  http_directory = "Linux/Ubuntu24-04/http"
 
   ssh_username = "${var.ssh_username}"
   ssh_password = "${var.ssh_password}"
@@ -124,7 +124,7 @@ build {
 
   # Provisioning the VM Template for Cloud-Init Integration in Proxmox #2
   provisioner "file" {
-    source      = "Ubuntu/Ubuntu24.04/files/99-pve.cfg"
+    source      = "Linux/Ubuntu24-04/files/99-pve.cfg"
     destination = "/tmp/99-pve.cfg"
   }
   provisioner "shell" {
