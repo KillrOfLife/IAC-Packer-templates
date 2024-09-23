@@ -82,6 +82,8 @@ source "proxmox-iso" "IAC-Ubuntu-24-04" {
   # communicator              = "ssh"
 
   http_directory = "Linux/Ubuntu24-04/http"
+  http_port_min  = 11010
+  http_port_max  = 11020
 
   ssh_username = "${var.ssh_username}"
   ssh_password = "${var.ssh_password}"

@@ -30,7 +30,7 @@ autoinstall:
   user-data:
     package_upgrade: true
     timezone: US/Pacific
-    ssh_pwauth: false
+    ssh_pwauth: true
     users:
       - name: ubuntu
         groups: [adm, sudo]
