@@ -144,13 +144,12 @@ build {
       ## Fish configuration
       "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | fish -c 'source && fisher install jorgebucaran/fisher'",
       "fish -c 'fisher install IlanCosman/tide@v6'",
-      "fish -c 'tide configure --auto --style=Classic --prompt_colors=\'True color\' --classic_prompt_color=Dark --show_time=\'24-hour format\' --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style=\'Two lines, character\' --prompt_connection=Solid --powerline_right_prompt_frame=No --prompt_connection_andor_frame_color=Light --prompt_spacing=Sparse --icons=\'Many icons\' --transient=Yes'",
+      "fish -c \"tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Dark --show_time='24-hour format' --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='Two lines, character' --prompt_connection=Solid --powerline_right_prompt_frame=No --prompt_connection_andor_frame_color=Light --prompt_spacing=Sparse --icons='Many icons' --transient=Yes\""
       "fish -c 'fisher install gazorby/fish-exa'",
       "fish -c 'fisher install gazorby/fifc'",
       "fish -c 'set -Ux fifc_editor nano'",
       "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh",
       "fish -c 'zoxide init fish | source'",
-      #"tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Dark --show_time='24-hour format' --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='Two lines, character' --prompt_connection=Solid --powerline_right_prompt_frame=No --prompt_connection_andor_frame_color=Light --prompt_spacing=Sparse --icons='Many icons' --transient=Yes"
 
 
 
