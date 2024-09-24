@@ -149,7 +149,7 @@ build {
       "fish -c 'fisher install gazorby/fifc'",
       "fish -c 'set -Ux fifc_editor nano'",
       "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh",
-      "fish -c 'zoxide init fish | source'"
+      "fish -c '.local/bin/zoxide init fish | source'"
 
 
 
