@@ -42,6 +42,8 @@ autoinstall:
         
   packages:
     - fish
+    - eza
+    - fzf
     - qemu-guest-agent
     - sudo
     - git
