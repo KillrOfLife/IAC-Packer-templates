@@ -11,6 +11,18 @@ variable "proxmox_api_token_secret" {
   sensitive = true
 }
 
+variable "TZ" {
+  type = string
+}
+
+variable "packages" {
+  type = list(string)
+}
+
+variable "shell" {
+  type = string
+}
+
 variable "ssh_username" {
   type = string
 }
@@ -18,6 +30,10 @@ variable "ssh_username" {
 variable "ssh_password" {
   type      = string
   sensitive = true
+}
+
+variable "hashed_password" {
+  type = string
 }
 
 variable "proxmox_node" {
@@ -81,7 +97,12 @@ source "proxmox-iso" "IAC-Ubuntu-24-04" {
   # boot_wait                 = "6s"
   # communicator              = "ssh"
 
-  http_directory = "Linux/Ubuntu24-04/http"
+  # http_directory = "Linux/Ubuntu24-04/http"
+  http_content ={
+    "/meta-data"  = file("http/meta-data")
+    "/user-data" = templatefile("http/user-data.tpl", { user = var.ssh_username, password = var.hashed_password, TZ=var.TZ, packages=var.packages, shell=var.shell})
+  }
+
   http_port_min  = 11010
   http_port_max  = 11020
 
@@ -141,26 +162,16 @@ build {
     inline = [
       "sudo apt -y remove ansible",
 
-      ## Fish configuration
-      "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | fish -c 'source && fisher install jorgebucaran/fisher'",
-      "fish -c 'fisher install IlanCosman/tide@v6'",
-      "fish -c \"tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Dark --show_time='24-hour format' --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='Two lines, character' --prompt_connection=Solid --powerline_right_prompt_frame=No --prompt_connection_andor_frame_color=Light --prompt_spacing=Sparse --icons='Many icons' --transient=Yes\"",
-      "fish -c 'fisher install gazorby/fish-exa'",
-      "fish -c 'fisher install gazorby/fifc'",
-      "fish -c 'set -Ux fifc_editor nano'",
-      "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh",
-      "fish -c '.local/bin/zoxide init fish | source'"
+      # "pipx install thefuck",
+      # "pipx ensurepath",
+      # "echo '' >> ~/.bashrc",
+
+      ##ZSH configuration
+      "git clone https://github.com/KillrOfLife/ZSH-dotfiles.git ~/dotfiles",
+      "cd ~/dotfiles && stow .",
 
 
 
-      #alias
-      #exa zed
-
-      ## add to ~/.config/fish/config.fish
-      # if type -q exa
-	    #   alias ll "exa -l -g --icons"
-	    #   alias lla "ll -a"
-      # end
 
     ]
   }

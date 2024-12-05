@@ -14,7 +14,7 @@ autoinstall:
     allow_public_ssh_keys: true
   storage:
     layout:
-      name: zfs
+      name: lvm
   network:
     version: 2
     ethernets:
@@ -29,20 +29,21 @@ autoinstall:
   disable_root: true
   user-data:
     package_upgrade: true
-    timezone: US/Pacific
+    timezone: ${TZ}
     ssh_pwauth: true
     users:
-      - name: ubuntu
+      - name: ${user}
         groups: [adm, sudo]
         lock-passwd: false
         sudo: ALL=(ALL) NOPASSWD:ALL
-        shell: /bin/fish
-        passwd: $6$rounds=4096$jEnM72qOA54aQ/ou$wGK4OQI94vNQIDWg6a7tpuTNRfjeYo6Acqp.57Kxi0SGzznHcf6.ZjTX5w9S/RQ3DniOrQ1SaKmiDH7n/FcjI0
+        shell: ${shell}
+        # mkpasswd --method=SHA-512 --rounds=4096
+        passwd: ${password}
         
   packages:
-    - fish
-    - eza
-    - fzf
+%{ for package in packages ~}
+    - ${package}
+%{ endfor ~}
     - qemu-guest-agent
     - sudo
     - git
@@ -52,5 +53,6 @@ autoinstall:
     - python3-pip 
     - python3-setuptools
     # - thefuck
+
 
   
